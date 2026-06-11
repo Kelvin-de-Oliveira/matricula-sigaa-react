@@ -1,0 +1,14 @@
+{
+  "id": "20231004567",
+  "nome": "Ana Souza",
+  "primeiroNome": "Ana",
+  "curso": "Engenharia de Software",
+  "periodo": 5,
+  "email": "ana.souza@mail.ufb.br",
+  "cpf": "123.456.789-00",
+  "dataNascimento": "2003-08-22",
+  "primeiroacesso": true,
+  "telefone": "(61) 99999-0000",
+  "endereco": "Quadra 405 Sul, Palmas/TO",
+  "semestre": "2026.1"
+}
