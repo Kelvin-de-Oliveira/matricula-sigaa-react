@@ -4,25 +4,26 @@ interface Turma {
   id: string
   codigo: string
   nome: string
-  professor: string
-  horario: string
+  periodo: number
+  creditos: number
   vagas: number
   vagasOcupadas: number
+  docente: string
+  horario: string
+  unidade: string
 }
 
 interface MatriculaState {
   turmasSelecionadas: Turma[]
   statusAtual: 'idle' | 'processando' | 'matriculado' | 'indeferido'
-  dadosCadastrais: { nome: string; email: string; telefone: string } | null
   conflitos: string[]
-  primeiroacesso: boolean
 }
 
 interface MatriculaContextType extends MatriculaState {
-  selecionarTurma: (turma: Turma) => void
+  toggleTurma: (turma: Turma) => void
+  isSelecionada: (id: string) => boolean
   removerTurma: (id: string) => void
   setStatus: (status: MatriculaState['statusAtual']) => void
-  setDadosCadastrais: (dados: MatriculaState['dadosCadastrais']) => void
   adicionarConflito: (conflito: string) => void
   limparConflitos: () => void
 }
@@ -32,12 +33,18 @@ const MatriculaContext = createContext<MatriculaContextType | null>(null)
 export function MatriculaProvider({ children }: { children: ReactNode }) {
   const [turmasSelecionadas, setTurmasSelecionadas] = useState<Turma[]>([])
   const [statusAtual, setStatusAtual] = useState<MatriculaState['statusAtual']>('idle')
-  const [dadosCadastrais, setDadosCadastraisState] = useState<MatriculaState['dadosCadastrais']>(null)
   const [conflitos, setConflitos] = useState<string[]>([])
-  const primeiroacesso = true
 
-  const selecionarTurma = (turma: Turma) => {
-    setTurmasSelecionadas(prev => [...prev, turma])
+  const toggleTurma = (turma: Turma) => {
+    setTurmasSelecionadas(prev =>
+      prev.some(t => t.id === turma.id)
+        ? prev.filter(t => t.id !== turma.id)
+        : [...prev, turma]
+    )
+  }
+
+  const isSelecionada = (id: string) => {
+    return turmasSelecionadas.some(t => t.id === id)
   }
 
   const removerTurma = (id: string) => {
@@ -46,10 +53,6 @@ export function MatriculaProvider({ children }: { children: ReactNode }) {
 
   const setStatus = (status: MatriculaState['statusAtual']) => {
     setStatusAtual(status)
-  }
-
-  const setDadosCadastrais = (dados: MatriculaState['dadosCadastrais']) => {
-    setDadosCadastraisState(dados)
   }
 
   const adicionarConflito = (conflito: string) => {
@@ -62,13 +65,11 @@ export function MatriculaProvider({ children }: { children: ReactNode }) {
     <MatriculaContext.Provider value={{
       turmasSelecionadas,
       statusAtual,
-      dadosCadastrais,
       conflitos,
-      primeiroacesso,
-      selecionarTurma,
+      toggleTurma,
+      isSelecionada,
       removerTurma,
       setStatus,
-      setDadosCadastrais,
       adicionarConflito,
       limparConflitos,
     }}>

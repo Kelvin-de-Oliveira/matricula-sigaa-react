@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { GraduationCap, FileText, BookOpen, FileCheck, CalendarDays, ArrowRight, TriangleAlert, X, LogOut, User, Home, Mail, MessageSquare, Library, Building2, Award, ClipboardList, Users, Briefcase, Settings, HelpCircle } from 'lucide-react'
+import { GraduationCap, FileText, BookOpen, FileCheck, CalendarDays, ArrowRight, TriangleAlert, X, LogOut, User, ChevronDown, Home, Mail, MessageSquare, Library, Building2, Award, ClipboardList, Users, Briefcase, Settings, HelpCircle } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
 import { useAluno } from '../../hooks/useAluno'
 
@@ -92,6 +92,7 @@ export default function Portal() {
                   style={{ backgroundColor: menuOpen ? 'rgba(255,255,255,0.1)' : 'transparent' }}>
                   <User className="w-4 h-4 text-blue-200" />
                 </div>
+                <ChevronDown className={`w-4 h-4 text-blue-200 transition-transform ${menuOpen ? 'rotate-180' : ''}`} />
               </button>
 
               {menuOpen && (
@@ -211,7 +212,7 @@ export default function Portal() {
             { label: 'Ver notas', sub: 'Boletim do semestre', icon: GraduationCap },
             { label: 'Histórico acadêmico', sub: 'Disciplinas cursadas', icon: BookOpen },
             { label: 'Emitir documentos', sub: 'Declarações e formulários', icon: FileText },
-            { label: 'Atestado de matrícula', sub: 'Comprovante atualizado', icon: FileCheck },
+            { label: 'Comprovante de matrícula', sub: 'Comprovante atualizado', icon: FileCheck },
           ].map((item, i) => (
             <button key={i}
               className="group bg-white rounded-xl border border-gray-200 p-5 flex flex-col items-start gap-3 text-left cursor-pointer transition-all duration-200 hover:border-blue-400 hover:shadow-md hover:-translate-y-0.5">

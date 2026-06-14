@@ -10,5 +10,7 @@
   "primeiroacesso": true,
   "telefone": "(61) 99999-0000",
   "endereco": "Quadra 405 Sul, Palmas/TO",
+  "cep": "77001-000",
+  "rendaPerCapita": "1.250,00",
   "semestre": "2026.1"
 }
