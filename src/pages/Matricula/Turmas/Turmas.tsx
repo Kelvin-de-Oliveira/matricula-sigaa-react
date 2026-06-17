@@ -6,6 +6,7 @@ import { useFiltroTurmas } from '../../../hooks/useFiltroTurmas'
 import unidadesData from '../../../mocks/unidades.json'
 import TurmaCard from '../../../components/shared/TurmaCard'
 import SubfiltrosTurmas from '../../../components/shared/SubfiltrosTurmas'
+import HeaderSIGAA from '../../../components/shared/HeaderSIGAA'
 import { ArrowLeft, ArrowRight, ArrowLeftRight, Sparkles, Filter, BookOpen } from 'lucide-react'
 
 type FiltroTipo = 'curso' | 'equivalentes' | 'nucleo-livre' | 'selecionadas'
@@ -31,22 +32,7 @@ export default function Turmas() {
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#e8f0f7' }}>
 
-      {/* Header */}
-      <header style={{ backgroundColor: '#1a3a5c' }} className="px-6 py-3">
-        <button
-          onClick={() => navigate('/portal')}
-          className="flex items-center gap-3 hover:opacity-80 transition-opacity"
-        >
-          <div className="w-10 h-10 rounded flex items-center justify-center text-white font-bold text-xs"
-            style={{ backgroundColor: '#2a5298' }}>
-            SIGAA
-          </div>
-          <div className="text-left">
-            <div className="text-white font-semibold text-sm">SIGAA</div>
-            <div className="text-blue-200 text-xs">Universidade Federal de Goiás</div>
-          </div>
-        </button>
-      </header>
+      <HeaderSIGAA />
 
       {/* Conteúdo */}
       <div className="flex-1 max-w-5xl w-full mx-auto px-6 py-8">

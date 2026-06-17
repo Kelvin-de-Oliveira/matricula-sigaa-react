@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAluno } from '../../../hooks/useAluno'
-import { User, MapPin, Phone, DollarSign, ArrowRight, ArrowLeft, X } from 'lucide-react'
+import { User, MapPin, Phone, DollarSign, ArrowRight, ArrowLeft } from 'lucide-react'
+import HeaderSIGAA from '../../../components/shared/HeaderSIGAA'
+import ModalConfirmacao from '../../../components/shared/ModalConfirmacao'
 
 export default function DadosCadastrais() {
   const navigate = useNavigate()
@@ -43,22 +45,7 @@ export default function DadosCadastrais() {
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#e8f0f7' }}>
 
-      {/* Header */}
-      <header style={{ backgroundColor: '#1a3a5c' }} className="px-6 py-3">
-        <button
-          onClick={() => navigate('/portal')}
-          className="flex items-center gap-3 hover:opacity-80 transition-opacity"
-        >
-          <div className="w-10 h-10 rounded flex items-center justify-center text-white font-bold text-sm"
-            style={{ backgroundColor: '#2a5298' }}>
-            SIGAA
-          </div>
-          <div className="text-left">
-            <div className="text-white font-semibold text-sm">SIGAA</div>
-            <div className="text-blue-200 text-xs">Universidade Federal de Goiás</div>
-          </div>
-        </button>
-      </header>
+      <HeaderSIGAA />
 
       {/* Conteúdo */}
       <div className="flex-1 max-w-3xl w-full mx-auto px-6 py-8">
@@ -205,35 +192,12 @@ export default function DadosCadastrais() {
 
       {/* Modal de confirmação */}
       {showConfirm && (
-        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 px-4">
-          <div className="bg-white rounded-xl max-w-md w-full p-6 relative">
-            <button onClick={handleCancel} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
-              <X className="w-4 h-4" />
-            </button>
-
-            <h2 className="text-lg font-semibold text-gray-900 mb-2">Confirmar dados cadastrais</h2>
-            <p className="text-sm text-gray-500 mb-6">
-              Você confirma que os dados de contato, endereço e informações socioeconômicas exibidos estão corretos e atualizados? Esta confirmação é necessária para prosseguir com a matrícula.
-            </p>
-
-            <div className="flex items-center justify-end gap-3">
-              <button
-                onClick={handleCancel}
-                className="px-5 py-2.5 rounded-lg text-sm font-semibold border transition-colors"
-                style={{ borderColor: '#1a3a5c', color: '#1a3a5c' }}
-              >
-                Cancelar
-              </button>
-              <button
-                onClick={handleConfirm}
-                className="text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-opacity hover:opacity-90"
-                style={{ backgroundColor: '#1a3a5c' }}
-              >
-                Confirmar
-              </button>
-            </div>
-          </div>
-        </div>
+        <ModalConfirmacao
+          titulo="Confirmar dados cadastrais"
+          mensagem="Você confirma que os dados de contato, endereço e informações socioeconômicas exibidos estão corretos e atualizados? Esta confirmação é necessária para prosseguir com a matrícula."
+          onConfirmar={handleConfirm}
+          onCancelar={handleCancel}
+        />
       )}
     </div>
   )

@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, ReactNode } from 'react'
 
-interface Turma {
+export interface Turma {
   id: string
   codigo: string
   nome: string
@@ -11,12 +11,13 @@ interface Turma {
   docente: string
   horario: string
   unidade: string
+  equivalenteDe?: string
+  equivalenteDeNome?: string
 }
 
 interface MatriculaState {
   turmasSelecionadas: Turma[]
   statusAtual: 'idle' | 'processando' | 'matriculado' | 'indeferido'
-  conflitos: string[]
 }
 
 interface MatriculaContextType extends MatriculaState {
@@ -24,8 +25,6 @@ interface MatriculaContextType extends MatriculaState {
   isSelecionada: (id: string) => boolean
   removerTurma: (id: string) => void
   setStatus: (status: MatriculaState['statusAtual']) => void
-  adicionarConflito: (conflito: string) => void
-  limparConflitos: () => void
 }
 
 const MatriculaContext = createContext<MatriculaContextType | null>(null)
@@ -33,7 +32,6 @@ const MatriculaContext = createContext<MatriculaContextType | null>(null)
 export function MatriculaProvider({ children }: { children: ReactNode }) {
   const [turmasSelecionadas, setTurmasSelecionadas] = useState<Turma[]>([])
   const [statusAtual, setStatusAtual] = useState<MatriculaState['statusAtual']>('idle')
-  const [conflitos, setConflitos] = useState<string[]>([])
 
   const toggleTurma = (turma: Turma) => {
     setTurmasSelecionadas(prev =>
@@ -55,23 +53,14 @@ export function MatriculaProvider({ children }: { children: ReactNode }) {
     setStatusAtual(status)
   }
 
-  const adicionarConflito = (conflito: string) => {
-    setConflitos(prev => [...prev, conflito])
-  }
-
-  const limparConflitos = () => setConflitos([])
-
   return (
     <MatriculaContext.Provider value={{
       turmasSelecionadas,
       statusAtual,
-      conflitos,
       toggleTurma,
       isSelecionada,
       removerTurma,
       setStatus,
-      adicionarConflito,
-      limparConflitos,
     }}>
       {children}
     </MatriculaContext.Provider>

@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useMatricula } from '../../../context/MatriculaContext'
 import { verificarConflitosDeHorario, Problema } from '../../../utils/verificarConflitos'
+import HeaderSIGAA from '../../../components/shared/HeaderSIGAA'
 import { ArrowLeft, ArrowRight, Loader2, CheckCircle2, XCircle, Clock, BookX, FlaskConical } from 'lucide-react'
 
 type EstadoVerificacao = 'verificando' | 'sucesso' | 'erro'
@@ -51,21 +52,7 @@ export default function Detalhes() {
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#e8f0f7' }}>
 
       {/* Header */}
-      <header style={{ backgroundColor: '#1a3a5c' }} className="px-6 py-3">
-        <button
-          onClick={() => navigate('/portal')}
-          className="flex items-center gap-3 hover:opacity-80 transition-opacity"
-        >
-          <div className="w-10 h-10 rounded flex items-center justify-center text-white font-bold text-xs"
-            style={{ backgroundColor: '#2a5298' }}>
-            SIGAA
-          </div>
-          <div className="text-left">
-            <div className="text-white font-semibold text-sm">SIGAA</div>
-            <div className="text-blue-200 text-xs">Universidade Federal de Goiás</div>
-          </div>
-        </button>
-      </header>
+      <HeaderSIGAA />
 
       {/* Conteúdo */}
       <div className="flex-1 max-w-2xl w-full mx-auto px-6 py-8">
@@ -115,13 +102,23 @@ export default function Detalhes() {
             <p className="text-sm text-gray-500 mb-6">
               Nenhum conflito de horário ou pré-requisito pendente foi encontrado nas {turmasSelecionadas.length} disciplinas selecionadas.
             </p>
-            <button
-              onClick={handleContinuar}
-              className="flex items-center gap-2 text-white text-sm font-semibold px-6 py-2.5 rounded-lg transition-opacity hover:opacity-90"
-              style={{ backgroundColor: '#1a3a5c' }}
-            >
-              Continuar <ArrowRight className="w-4 h-4" />
-            </button>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => navigate('/matricula/turmas')}
+                className="flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold border transition-colors"
+                style={{ borderColor: '#1a3a5c', color: '#1a3a5c' }}
+              >
+                <ArrowLeft className="w-4 h-4" /> Voltar
+              </button>
+
+              <button
+                onClick={handleContinuar}
+                className="flex items-center gap-2 text-white text-sm font-semibold px-6 py-2.5 rounded-lg transition-opacity hover:opacity-90"
+                style={{ backgroundColor: '#1a3a5c' }}
+              >
+                Continuar <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
           </div>
         )}
 

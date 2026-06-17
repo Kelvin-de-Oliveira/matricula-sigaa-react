@@ -1,20 +1,6 @@
 import { Check, Clock, Building2, User, Users } from 'lucide-react'
 import { formatarHorario } from '../../utils/formatarHorario'
-
-interface Turma {
-  id: string
-  codigo: string
-  nome: string
-  periodo?: number
-  creditos: number
-  vagas: number
-  vagasOcupadas: number
-  docente: string
-  horario: string
-  unidade: string
-  equivalenteDe?: string
-  equivalenteDeNome?: string
-}
+import type { Turma } from '../../context/MatriculaContext'
 
 interface TurmaCardProps {
   turma: Turma

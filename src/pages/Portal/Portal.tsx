@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { GraduationCap, FileText, BookOpen, FileCheck, CalendarDays, ArrowRight, TriangleAlert, X, LogOut, User, ChevronDown, Home, Mail, MessageSquare, Library, Building2, Award, ClipboardList, Users, Briefcase, Settings, HelpCircle } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
 import { useAluno } from '../../hooks/useAluno'
+import HeaderSIGAA from '../../components/shared/HeaderSIGAA'
 
 export default function Portal() {
   const navigate = useNavigate()
@@ -63,83 +64,71 @@ export default function Portal() {
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#e8f0f7' }}>
 
       {/* Header */}
-      <header style={{ backgroundColor: '#1a3a5c' }} className="px-6 py-3 relative">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded flex items-center justify-center text-white font-bold text-sm"
-                style={{ backgroundColor: '#2a5298' }}>
-                SIGAA
-              </div>
-              <div>
-                <div className="text-white font-semibold text-sm">SIGAA</div>
-                <div className="text-blue-200 text-xs">Universidade Federal de Goiás</div>
-              </div>
-            </div>
-          </div>
+      <div className="relative">
+        <HeaderSIGAA />
 
-          <div className="flex items-center gap-4">
-            <div ref={menuRef} className="relative">
-              <button
-                onClick={() => setMenuOpen(!menuOpen)}
-                className="flex items-center gap-3 hover:opacity-80 transition-opacity"
-              >
-                <div className="text-right">
-                  <div className="text-white text-sm font-medium">{aluno.nome}</div>
-                  <div className="text-blue-200 text-xs">Discente</div>
-                </div>
-                <div className="w-9 h-9 rounded-full border-2 border-blue-300 flex items-center justify-center"
-                  style={{ backgroundColor: menuOpen ? 'rgba(255,255,255,0.1)' : 'transparent' }}>
-                  <User className="w-4 h-4 text-blue-200" />
-                </div>
-                <ChevronDown className={`w-4 h-4 text-blue-200 transition-transform ${menuOpen ? 'rotate-180' : ''}`} />
-              </button>
-
-              {menuOpen && (
-                <div className="absolute top-full right-0 mt-2 bg-white rounded-xl shadow-xl border border-gray-200 py-3 z-50"
-                  style={{ width: '640px' }}>
-                  <div className="px-4 py-2 border-b border-gray-100 mb-2">
-                    <p className="text-sm font-semibold text-gray-800">{aluno.nome}</p>
-                    <p className="text-xs text-gray-400">{aluno.email}</p>
-                  </div>
-                  <div className="grid grid-cols-2 gap-x-6 gap-y-1 px-4">
-                    {menuSections.map((section, i) => (
-                      <div key={i} className="py-2">
-                        <h3 className="text-xs font-semibold tracking-widest text-gray-400 uppercase mb-2 px-2">
-                          {section.title}
-                        </h3>
-                        <div className="flex flex-col gap-0.5">
-                          {section.items.map((item, j) => (
-                            <button
-                              key={j}
-                              className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-gray-50 text-left"
-                            >
-                              <item.icon className="w-4 h-4 text-gray-400 flex-shrink-0" />
-                              <span className="text-sm text-gray-700">{item.label}</span>
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="border-t border-gray-100 mt-2 pt-3 px-6">
-                    <p className="text-xs text-gray-400">
-                      Navegue por todas as funcionalidades do sistema
-                    </p>
-                  </div>
-                </div>
-              )}
-            </div>
+        {/* Área direita sobreposta: usuário + sair */}
+        <div className="absolute top-0 right-0 h-full flex items-center gap-4 px-6">
+          <div ref={menuRef} className="relative">
             <button
-              onClick={() => navigate('/login')}
-              className="flex items-center gap-1.5 text-blue-200 hover:text-white text-sm transition-colors"
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="flex items-center gap-3 hover:opacity-80 transition-opacity"
             >
-              <LogOut className="w-4 h-4" />
-              Sair
+              <div className="text-right">
+                <div className="text-white text-sm font-medium">{aluno.nome}</div>
+                <div className="text-blue-200 text-xs">Discente</div>
+              </div>
+              <div className="w-9 h-9 rounded-full border-2 border-blue-300 flex items-center justify-center"
+                style={{ backgroundColor: menuOpen ? 'rgba(255,255,255,0.1)' : 'transparent' }}>
+                <User className="w-4 h-4 text-blue-200" />
+              </div>
+              <ChevronDown className={`w-4 h-4 text-blue-200 transition-transform ${menuOpen ? 'rotate-180' : ''}`} />
             </button>
+
+            {menuOpen && (
+              <div className="absolute top-full right-0 mt-2 bg-white rounded-xl shadow-xl border border-gray-200 py-3 z-50"
+                style={{ width: '640px' }}>
+                <div className="px-4 py-2 border-b border-gray-100 mb-2">
+                  <p className="text-sm font-semibold text-gray-800">{aluno.nome}</p>
+                  <p className="text-xs text-gray-400">{aluno.email}</p>
+                </div>
+                <div className="grid grid-cols-2 gap-x-6 gap-y-1 px-4">
+                  {menuSections.map((section, i) => (
+                    <div key={i} className="py-2">
+                      <h3 className="text-xs font-semibold tracking-widest text-gray-400 uppercase mb-2 px-2">
+                        {section.title}
+                      </h3>
+                      <div className="flex flex-col gap-0.5">
+                        {section.items.map((item, j) => (
+                          <button
+                            key={j}
+                            className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-gray-50 text-left"
+                          >
+                            <item.icon className="w-4 h-4 text-gray-400 flex-shrink-0" />
+                            <span className="text-sm text-gray-700">{item.label}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="border-t border-gray-100 mt-2 pt-3 px-6">
+                  <p className="text-xs text-gray-400">
+                    Navegue por todas as funcionalidades do sistema
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
+          <button
+            onClick={() => navigate('/login')}
+            className="flex items-center gap-1.5 text-blue-200 hover:text-white text-sm transition-colors"
+          >
+            <LogOut className="w-4 h-4" />
+            Sair
+          </button>
         </div>
-      </header>
+      </div>
 
       {/* Conteúdo */}
       <div className="flex-1 max-w-6xl w-full mx-auto px-6 py-6">
