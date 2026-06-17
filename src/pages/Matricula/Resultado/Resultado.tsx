@@ -4,6 +4,7 @@ import { useMatricula } from '../../../context/MatriculaContext'
 import { sortearResultadoMatricula } from '../../../utils/sortearResultadoMatricula'
 import { formatarHorario } from '../../../utils/formatarHorario'
 import HeaderSIGAA from '../../../components/shared/HeaderSIGAA'
+import DisciplinaResumoCard from '../../../components/shared/DisciplinaResumoCard'
 import { CheckCircle2, XCircle, Clock, Building2, User, Home, Building } from 'lucide-react'
 
 export default function Resultado() {
@@ -49,53 +50,12 @@ export default function Resultado() {
 
           <div className="divide-y divide-gray-100">
             {resultados.map(resultado => (
-              <div key={resultado.turma.id} className="px-5 py-4">
-                <div className="flex items-start justify-between gap-3 mb-1">
-                  <div>
-                    <span className="text-xs font-mono text-gray-400">{resultado.turma.codigo}</span>
-                    <p className="text-sm font-semibold text-gray-900">{resultado.turma.nome}</p>
-                  </div>
-
-                  {resultado.status === 'matriculado' ? (
-                    <span className="flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full flex-shrink-0"
-                      style={{ backgroundColor: '#d1fae5', color: '#065f46' }}>
-                      <CheckCircle2 className="w-3.5 h-3.5" />
-                      Matriculado
-                    </span>
-                  ) : (
-                    <span className="flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full flex-shrink-0"
-                      style={{ backgroundColor: '#fee2e2', color: '#991b1b' }}>
-                      <XCircle className="w-3.5 h-3.5" />
-                      Indeferido
-                    </span>
-                  )}
-                </div>
-
-                <div className="grid grid-cols-2 gap-x-4 gap-y-1 mt-2 text-xs text-gray-500">
-                  <div className="flex items-center gap-1.5">
-                    <User className="w-3.5 h-3.5" />
-                    {resultado.turma.docente}
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <Clock className="w-3.5 h-3.5" />
-                    {formatarHorario(resultado.turma.horario)}
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <Building2 className="w-3.5 h-3.5" />
-                    {resultado.turma.unidade}
-                  </div>
-                </div>
-
-                {resultado.status === 'indeferido' && resultado.motivoIndeferimento && (
-                  <div className="flex items-start gap-2 mt-2.5 px-3 py-2 rounded-lg"
-                    style={{ backgroundColor: '#fef2f2' }}>
-                    <XCircle className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" style={{ color: '#991b1b' }} />
-                    <p className="text-xs" style={{ color: '#991b1b' }}>
-                      {resultado.motivoIndeferimento}
-                    </p>
-                  </div>
-                )}
-              </div>
+              <DisciplinaResumoCard
+                key={resultado.turma.id}
+                turma={resultado.turma}
+                status={resultado.status}
+                motivoIndeferimento={resultado.motivoIndeferimento}
+              />
             ))}
           </div>
         </div>

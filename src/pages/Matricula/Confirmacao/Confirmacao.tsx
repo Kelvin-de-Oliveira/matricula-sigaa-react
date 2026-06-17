@@ -5,6 +5,7 @@ import { montarGradeHorarios, NOMES_DIAS, NOMES_TURNOS } from '../../../utils/mo
 import { formatarHorario } from '../../../utils/formatarHorario'
 import HeaderSIGAA from '../../../components/shared/HeaderSIGAA'
 import ModalConfirmacao from '../../../components/shared/ModalConfirmacao'
+import DisciplinaResumoCard from '../../../components/shared/DisciplinaResumoCard'
 import { ArrowLeft, ArrowRight, AlertTriangle, User, Clock, Building2, Lock, Calendar, XCircle, Eye, EyeOff } from 'lucide-react'
 
 export default function Confirmacao() {
@@ -90,27 +91,7 @@ export default function Confirmacao() {
 
             <div className="divide-y divide-gray-100">
               {turmasSelecionadas.map(turma => (
-                <div key={turma.id} className="px-5 py-4">
-                  <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded-md"
-                    style={{ backgroundColor: '#e8f0f7', color: '#1a3a5c' }}>
-                    {turma.codigo}
-                  </span>
-                  <p className="text-sm font-semibold text-gray-900">{turma.nome}</p>
-                  <div className="flex flex-col gap-1 mt-2 text-xs text-gray-500">
-                    <div className="flex items-center gap-1.5">
-                      <User className="w-3.5 h-3.5" />
-                      {turma.docente}
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <Clock className="w-3.5 h-3.5" />
-                      {formatarHorario(turma.horario)}
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <Building2 className="w-3.5 h-3.5" />
-                      {turma.unidade}
-                    </div>
-                  </div>
-                </div>
+                <DisciplinaResumoCard key={turma.id} turma={turma} />
               ))}
             </div>
           </div>

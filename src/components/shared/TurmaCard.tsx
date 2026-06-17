@@ -25,7 +25,10 @@ export default function TurmaCard({
       <div className="flex-1 min-w-0">
         <div className="flex items-start justify-between gap-3 mb-1">
           <div>
-            <span className="text-xs font-mono text-gray-400">{turma.codigo}</span>
+            <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded-md"
+                style={{ backgroundColor: '#e8f0f7', color: '#1a3a5c' }}>
+                {turma.codigo}
+              </span>
             <p className="text-sm font-semibold text-gray-900">{turma.nome}</p>
           </div>
           {variant === 'checkbox' && lotada && (

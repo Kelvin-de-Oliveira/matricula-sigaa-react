@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useMatricula } from '../../../context/MatriculaContext'
 import { formatarHorario } from '../../../utils/formatarHorario'
 import HeaderSIGAA from '../../../components/shared/HeaderSIGAA'
+import DisciplinaResumoCard from '../../../components/shared/DisciplinaResumoCard'
 import { Clock, Building2, User, Loader2, FlaskConical, CalendarClock } from 'lucide-react'
 
 export default function Status() {
@@ -61,35 +62,7 @@ export default function Status() {
 
           <div className="divide-y divide-gray-100">
             {turmasSelecionadas.map(turma => (
-              <div key={turma.id} className="px-5 py-4">
-                <div className="flex items-start justify-between gap-3 mb-1">
-                  <div>
-                    <span className="text-xs font-mono text-gray-400">{turma.codigo}</span>
-                    <p className="text-sm font-semibold text-gray-900">{turma.nome}</p>
-                  </div>
-
-                  <span className="flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full flex-shrink-0"
-                    style={{ backgroundColor: '#f1efe8', color: '#5f5e5a' }}>
-                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                    Processando
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-2 gap-x-4 gap-y-1 mt-2 text-xs text-gray-500">
-                  <div className="flex items-center gap-1.5">
-                    <User className="w-3.5 h-3.5" />
-                    {turma.docente}
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <Clock className="w-3.5 h-3.5" />
-                    {formatarHorario(turma.horario)}
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <Building2 className="w-3.5 h-3.5" />
-                    {turma.unidade}
-                  </div>
-                </div>
-              </div>
+              <DisciplinaResumoCard key={turma.id} turma={turma} status="processando" />
             ))}
           </div>
         </div>
