@@ -1,0 +1,92 @@
+{
+  "turmas": [
+    {
+      "id": "LIBR101-A",
+      "codigo": "LIBR101",
+      "nome": "Introdução à Língua Brasileira de Sinais",
+      "creditos": 2,
+      "vagas": 40,
+      "vagasOcupadas": 30,
+      "docente": "Profa. Tatiane Furtado",
+      "horario": "3N12",
+      "unidade": "Faculdade de Letras"
+    },
+    {
+      "id": "ECON150-A",
+      "codigo": "ECON150",
+      "nome": "Economia Criativa",
+      "creditos": 4,
+      "vagas": 35,
+      "vagasOcupadas": 14,
+      "docente": "Prof. Henrique Salgado",
+      "horario": "5T34",
+      "unidade": "Faculdade de Letras"
+    },
+    {
+      "id": "EDFI200-A",
+      "codigo": "EDFI200",
+      "nome": "Atividades Físicas e Qualidade de Vida",
+      "creditos": 2,
+      "vagas": 50,
+      "vagasOcupadas": 18,
+      "docente": "Prof. Anderson Reis",
+      "horario": "6M12",
+      "unidade": "Faculdade de Educação Física e Dança"
+    },
+    {
+      "id": "GEOG110-A",
+      "codigo": "GEOG110",
+      "nome": "Geografia Ambiental e Sustentabilidade",
+      "creditos": 4,
+      "vagas": 30,
+      "vagasOcupadas": 30,
+      "docente": "Profa. Cláudia Nunes",
+      "horario": "2T56 4T56",
+      "unidade": "Instituto de Geografia"
+    },
+    {
+      "id": "BIOL130-A",
+      "codigo": "BIOL130",
+      "nome": "Educação Ambiental",
+      "creditos": 2,
+      "vagas": 40,
+      "vagasOcupadas": 22,
+      "docente": "Prof. Marcos Aurélio",
+      "horario": "4N45",
+      "unidade": "Instituto de Ciências Biológicas"
+    },
+    {
+      "id": "QUIM140-A",
+      "codigo": "QUIM140",
+      "nome": "Química e Sociedade",
+      "creditos": 2,
+      "vagas": 35,
+      "vagasOcupadas": 9,
+      "docente": "Profa. Renata Vasques",
+      "horario": "6N12",
+      "unidade": "Instituto de Química"
+    },
+    {
+      "id": "COMP190-A",
+      "codigo": "COMP190",
+      "nome": "Empreendedorismo Digital",
+      "creditos": 4,
+      "vagas": 35,
+      "vagasOcupadas": 35,
+      "docente": "Prof. Felipe Tavares",
+      "horario": "3T12 5T12",
+      "unidade": "Instituto de Informática"
+    },
+    {
+      "id": "MAT190-A",
+      "codigo": "MAT190",
+      "nome": "História da Matemática",
+      "creditos": 2,
+      "vagas": 40,
+      "vagasOcupadas": 11,
+      "docente": "Prof. André Lopes",
+      "horario": "2N45",
+      "unidade": "Instituto de Matemática e Estatística"
+    }
+  ]
+}

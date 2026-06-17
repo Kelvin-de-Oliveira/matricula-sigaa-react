@@ -1,9 +1,12 @@
-import { useState, useMemo } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAluno } from '../../../hooks/useAluno'
 import { useMatricula } from '../../../context/MatriculaContext'
-import turmasData from '../../../mocks/turmasOfertadas.json'
-import { ArrowLeft, ArrowRight, Filter, Users, Clock, Building2, User, BookOpen, Check } from 'lucide-react'
+import { useFiltroTurmas } from '../../../hooks/useFiltroTurmas'
+import unidadesData from '../../../mocks/unidades.json'
+import TurmaCard from '../../../components/shared/TurmaCard'
+import SubfiltrosTurmas from '../../../components/shared/SubfiltrosTurmas'
+import { ArrowLeft, ArrowRight, ArrowLeftRight, Sparkles, Filter, BookOpen } from 'lucide-react'
 
 type FiltroTipo = 'curso' | 'equivalentes' | 'nucleo-livre' | 'selecionadas'
 
@@ -13,36 +16,17 @@ export default function Turmas() {
   const { turmasSelecionadas, toggleTurma, isSelecionada } = useMatricula()
   const [filtroTipo, setFiltroTipo] = useState<FiltroTipo>('curso')
 
-  // Determina períodos a exibir: ímpares para semestre .1, pares para .2
-  const periodosVisiveis = useMemo(() => {
-    const ehImpar = aluno.semestre.endsWith('.1')
-    return [1, 2, 3, 4, 5, 6, 7, 8, 9].filter(p =>
-      ehImpar ? p % 2 !== 0 : p % 2 === 0
-    )
-  }, [aluno.semestre])
-
-  // Agrupa turmas por período
-  const turmasPorPeriodo = useMemo(() => {
-    const grupos: Record<number, typeof turmasData.turmas> = {}
-    periodosVisiveis.forEach(p => {
-      grupos[p] = turmasData.turmas.filter(t => t.periodo === p)
-    })
-    return grupos
-  }, [periodosVisiveis])
-
-  // Decodifica horário "2M12" → "Seg M12"
-  const decodificarHorario = (horario: string) => {
-    const dias: Record<string, string> = {
-      '2': 'Seg', '3': 'Ter', '4': 'Qua', '5': 'Qui', '6': 'Sex', '7': 'Sáb'
-    }
-    const turnos: Record<string, string> = { 'M': 'M', 'T': 'T', 'N': 'N' }
-    return horario.split(' ').map(bloco => {
-      const dia = dias[bloco[0]] || bloco[0]
-      const turno = turnos[bloco[1]] || bloco[1]
-      const horarios = bloco.slice(2)
-      return `${dia} ${turno}${horarios}`
-    }).join(' · ')
-  }
+  const {
+    periodosVisiveis,
+    turmasPorPeriodo,
+    filtroHorario, setFiltroHorario,
+    filtroUnidade, setFiltroUnidade,
+    filtroBusca, setFiltroBusca,
+    filtroDocente, setFiltroDocente,
+    turmasEquivalentesFiltradas,
+    turmasNucleoLivreFiltradas,
+    limparSubfiltros,
+  } = useFiltroTurmas(aluno.semestre)
 
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#e8f0f7' }}>
@@ -133,12 +117,51 @@ export default function Turmas() {
           </div>
         </div>
 
-        {/* Aviso para filtros ainda não implementados */}
+        {/* Subfiltros (Equivalentes e Núcleo livre) */}
         {(filtroTipo === 'equivalentes' || filtroTipo === 'nucleo-livre') && (
-          <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6 text-center">
-            <p className="text-sm text-gray-500">
-              Filtros adicionais serão exibidos aqui na próxima etapa do protótipo.
-            </p>
+          <SubfiltrosTurmas
+            filtroBusca={filtroBusca} setFiltroBusca={setFiltroBusca}
+            filtroDocente={filtroDocente} setFiltroDocente={setFiltroDocente}
+            filtroUnidade={filtroUnidade} setFiltroUnidade={setFiltroUnidade}
+            filtroHorario={filtroHorario} setFiltroHorario={setFiltroHorario}
+            unidades={unidadesData.unidades}
+            onLimpar={limparSubfiltros}
+          />
+        )}
+
+        {/* Aviso para filtros ainda não implementados */}
+        {filtroTipo === 'nucleo-livre' && (
+          <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+            <div className="flex items-center gap-3 px-5 py-3 border-b border-gray-200"
+              style={{ backgroundColor: '#f4f7fb' }}>
+              <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white"
+                style={{ backgroundColor: '#1a3a5c' }}>
+                <Sparkles className="w-4 h-4" />
+              </div>
+              <div>
+                <h3 className="text-sm font-semibold text-gray-900">Disciplinas de núcleo livre</h3>
+                <p className="text-xs text-gray-500">
+                  Componentes curriculares de livre escolha, ofertados por qualquer unidade da universidade
+                </p>
+              </div>
+            </div>
+
+            <div className="divide-y divide-gray-100">
+              {turmasNucleoLivreFiltradas.length === 0 ? (
+                <div className="px-5 py-8 text-center text-sm text-gray-400">
+                  Nenhuma disciplina encontrada com os filtros selecionados.
+                </div>
+              ) : (
+                turmasNucleoLivreFiltradas.map(turma => (
+                  <TurmaCard
+                    key={turma.id}
+                    turma={turma}
+                    isSelected={isSelecionada(turma.id)}
+                    onToggle={toggleTurma}
+                  />
+                ))
+              )}
+            </div>
           </div>
         )}
 
@@ -160,7 +183,6 @@ export default function Turmas() {
 
               return (
                 <div key={periodo} className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-                  {/* Cabeçalho do período */}
                   <div className="flex items-center gap-3 px-5 py-3 border-b border-gray-200"
                     style={{ backgroundColor: '#f4f7fb' }}>
                     <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-xs font-bold"
@@ -173,81 +195,56 @@ export default function Turmas() {
                     </div>
                   </div>
 
-                  {/* Lista de disciplinas */}
                   <div className="divide-y divide-gray-100">
-                    {turmas.map(turma => {
-                      const isSelected = isSelecionada(turma.id)
-                      const vagasRestantes = turma.vagas - turma.vagasOcupadas
-                      const lotada = vagasRestantes === 0
-
-                      return (
-                        <label
-                          key={turma.id}
-                          className={`flex items-start gap-3 px-5 py-4 cursor-pointer transition-colors ${
-                            isSelected ? 'bg-blue-50' : 'hover:bg-gray-50'
-                          }`}
-                        >
-                          {/* Checkbox */}
-                          <div className="pt-0.5">
-                            <input
-                              type="checkbox"
-                              checked={isSelected}
-                              onChange={() => toggleTurma(turma)}
-                              disabled={lotada}
-                              className="sr-only"
-                            />
-                            <div
-                              className="w-5 h-5 rounded border-2 flex items-center justify-center transition-all"
-                              style={{
-                                backgroundColor: isSelected ? '#1a3a5c' : 'white',
-                                borderColor: isSelected ? '#1a3a5c' : lotada ? '#d1d5db' : '#9ca3af',
-                                opacity: lotada ? 0.4 : 1
-                              }}
-                            >
-                              {isSelected && <Check className="w-3.5 h-3.5 text-white" />}
-                            </div>
-                          </div>
-
-                          {/* Conteúdo */}
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-start justify-between gap-3 mb-1">
-                              <div>
-                                <span className="text-xs font-mono text-gray-400">{turma.codigo}</span>
-                                <p className="text-sm font-semibold text-gray-900">{turma.nome}</p>
-                              </div>
-                              {lotada && (
-                                <span className="text-xs font-medium px-2 py-0.5 rounded-full flex-shrink-0"
-                                  style={{ backgroundColor: '#fee2e2', color: '#991b1b' }}>
-                                  Lotada
-                                </span>
-                              )}
-                            </div>
-                            <div className="grid grid-cols-2 gap-x-4 gap-y-1 mt-2 text-xs text-gray-500">
-                              <div className="flex items-center gap-1.5">
-                                <User className="w-3.5 h-3.5" />
-                                {turma.docente}
-                              </div>
-                              <div className="flex items-center gap-1.5">
-                                <Clock className="w-3.5 h-3.5" />
-                                {decodificarHorario(turma.horario)}
-                              </div>
-                              <div className="flex items-center gap-1.5">
-                                <Building2 className="w-3.5 h-3.5" />
-                                {turma.unidade}
-                              </div>
-                              <div className="flex items-center gap-1.5">
-                                <Users className="w-3.5 h-3.5" />
-                                {vagasRestantes}/{turma.vagas} vagas
-                              </div>
-                            </div>
-                          </div>
-                        </label>
-                      )
-                    })}
+                    {turmas.map(turma => (
+                      <TurmaCard
+                        key={turma.id}
+                        turma={turma}
+                        isSelected={isSelecionada(turma.id)}
+                        onToggle={toggleTurma}
+                      />
+                    ))}
                   </div>
                 </div>
               )
             })}
+          </div>
+        )}
+
+        {/* Disciplinas equivalentes (filtro: equivalentes) */}
+        {filtroTipo === 'equivalentes' && (
+          <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+            <div className="flex items-center gap-3 px-5 py-3 border-b border-gray-200"
+              style={{ backgroundColor: '#f4f7fb' }}>
+              <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white"
+                style={{ backgroundColor: '#1a3a5c' }}>
+                <ArrowLeftRight className="w-4 h-4" />
+              </div>
+              <div>
+                <h3 className="text-sm font-semibold text-gray-900">Disciplinas equivalentes</h3>
+                <p className="text-xs text-gray-500">
+                  Disciplinas que substituem componentes obrigatórios do seu currículo
+                </p>
+              </div>
+            </div>
+
+            <div className="divide-y divide-gray-100">
+              {turmasEquivalentesFiltradas.length === 0 ? (
+                <div className="px-5 py-8 text-center text-sm text-gray-400">
+                  Nenhuma disciplina encontrada com os filtros selecionados.
+                </div>
+              ) : (
+                turmasEquivalentesFiltradas.map(turma => (
+                  <TurmaCard
+                    key={turma.id}
+                    turma={turma}
+                    isSelected={isSelecionada(turma.id)}
+                    onToggle={toggleTurma}
+                    badgeEquivalencia={`Equivalente a ${turma.equivalenteDe} — ${turma.equivalenteDeNome}`}
+                  />
+                ))
+              )}
+            </div>
           </div>
         )}
 
@@ -267,52 +264,15 @@ export default function Turmas() {
             </div>
 
             <div className="divide-y divide-gray-100">
-              {turmasSelecionadas.map(turma => {
-                const vagasRestantes = turma.vagas - turma.vagasOcupadas
-                return (
-                  <div key={turma.id} className="flex items-start gap-3 px-5 py-4 bg-blue-50">
-                    <div className="pt-0.5">
-                      <div className="w-5 h-5 rounded border-2 flex items-center justify-center"
-                        style={{ backgroundColor: '#1a3a5c', borderColor: '#1a3a5c' }}>
-                        <Check className="w-3.5 h-3.5 text-white" />
-                      </div>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-start justify-between gap-3 mb-1">
-                        <div>
-                          <span className="text-xs font-mono text-gray-400">{turma.codigo}</span>
-                          <p className="text-sm font-semibold text-gray-900">{turma.nome}</p>
-                        </div>
-                        <button
-                          onClick={() => toggleTurma(turma)}
-                          className="text-xs font-medium px-2 py-1 rounded-lg border transition-colors flex-shrink-0"
-                          style={{ borderColor: '#d1d5db', color: '#6b7280' }}
-                        >
-                          Remover
-                        </button>
-                      </div>
-                      <div className="grid grid-cols-2 gap-x-4 gap-y-1 mt-2 text-xs text-gray-500">
-                        <div className="flex items-center gap-1.5">
-                          <User className="w-3.5 h-3.5" />
-                          {turma.docente}
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <Clock className="w-3.5 h-3.5" />
-                          {decodificarHorario(turma.horario)}
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <Building2 className="w-3.5 h-3.5" />
-                          {turma.unidade}
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <Users className="w-3.5 h-3.5" />
-                          {vagasRestantes}/{turma.vagas} vagas
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )
-              })}
+              {turmasSelecionadas.map(turma => (
+                <TurmaCard
+                  key={turma.id}
+                  turma={turma}
+                  isSelected={true}
+                  onToggle={toggleTurma}
+                  variant="selecionada"
+                />
+              ))}
             </div>
           </div>
         )}

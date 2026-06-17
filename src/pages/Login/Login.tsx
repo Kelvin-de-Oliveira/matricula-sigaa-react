@@ -77,7 +77,7 @@ export default function Login() {
     refreshCaptcha()
     return
   }
-  if (data.usuario === 'ana.souza' && data.senha === '123456') {
+  if (data.usuario === 'ana.souza' && data.senha === '$3nh4Teste') {
     navigate('/portal')
   } else {
     setError('root', { message: 'Usuário ou senha incorretos.' })

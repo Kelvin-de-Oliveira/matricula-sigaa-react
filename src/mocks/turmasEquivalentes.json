@@ -1,0 +1,69 @@
+{
+  "turmas": [
+    {
+      "id": "MAT150-A",
+      "codigo": "MAT150",
+      "nome": "Cálculo I",
+      "equivalenteDe": "MAT101",
+      "equivalenteDeNome": "Cálculo Diferencial e Integral I",
+      "creditos": 6,
+      "vagas": 40,
+      "vagasOcupadas": 35,
+      "docente": "Prof. Eduardo Nakamura",
+      "horario": "2M1234",
+      "unidade": "Instituto de Matemática e Estatística"
+    },
+    {
+      "id": "COMP220-A",
+      "codigo": "COMP220",
+      "nome": "Algoritmos e Estruturas de Dados",
+      "equivalenteDe": "ESW301",
+      "equivalenteDeNome": "Estruturas de Dados",
+      "creditos": 4,
+      "vagas": 35,
+      "vagasOcupadas": 20,
+      "docente": "Profa. Juliana Prado",
+      "horario": "4N123 6N12",
+      "unidade": "Instituto de Informática"
+    },
+    {
+      "id": "COMP340-A",
+      "codigo": "COMP340",
+      "nome": "Sistemas de Banco de Dados",
+      "equivalenteDe": "ESW302",
+      "equivalenteDeNome": "Banco de Dados",
+      "creditos": 4,
+      "vagas": 30,
+      "vagasOcupadas": 12,
+      "docente": "Prof. Marcelo Tanaka",
+      "horario": "3M56 5M56",
+      "unidade": "Instituto de Informática"
+    },
+    {
+      "id": "FIS150-A",
+      "codigo": "FIS150",
+      "nome": "Física I",
+      "equivalenteDe": "FIS101",
+      "equivalenteDeNome": "Física Geral I",
+      "creditos": 4,
+      "vagas": 45,
+      "vagasOcupadas": 45,
+      "docente": "Profa. Sandra Brito",
+      "horario": "5T56 7M1234",
+      "unidade": "Instituto de Física"
+    },
+    {
+      "id": "COMP410-A",
+      "codigo": "COMP410",
+      "nome": "Tópicos em Inteligência Artificial",
+      "equivalenteDe": "ESW703",
+      "equivalenteDeNome": "Inteligência Artificial",
+      "creditos": 4,
+      "vagas": 25,
+      "vagasOcupadas": 9,
+      "docente": "Prof. Otávio Bessa",
+      "horario": "2N45 4N45",
+      "unidade": "Instituto de Informática"
+    }
+  ]
+}

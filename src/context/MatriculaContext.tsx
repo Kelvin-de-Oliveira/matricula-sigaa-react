@@ -4,7 +4,7 @@ interface Turma {
   id: string
   codigo: string
   nome: string
-  periodo: number
+  periodo?: number
   creditos: number
   vagas: number
   vagasOcupadas: number
