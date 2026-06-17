@@ -4,7 +4,7 @@
 
 Este projeto foi desenvolvido para a atividade de Proposta de Melhoria de Interface e Experiência do Usuário. A proposta consiste em identificar uma solução de software que não atenda aos critérios de qualidade de interface e experiência do usuário discutidos em sala, e a partir dela criar um protótipo de alta fidelidade com uma nova interface que atenda a esses critérios.
 
-A solução escolhida foi o SIGAA, especificamente o fluxo de realização de matrícula online, mapeado previamente por meio de diagramas BPMN e de um mapa de empatia do usuário discente.
+A solução escolhida foi o SIGAA, especificamente o fluxo de realização de matrícula online, mapeado previamente por meio de diagramas BPMN e de um mapa de empatia do usuário discente. Disponíveis em `docs/`
 
 ## Critérios de UI/UX considerados
 
