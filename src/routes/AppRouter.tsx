@@ -18,7 +18,7 @@ export default function AppRouter() {
         <Route path="/portal" element={<Portal />} />
         <Route path="/matricula/dados-cadastrais" element={<DadosCadastrais />} />
         <Route path="/matricula/turmas" element={<Turmas />} />
-        <Route path="/matricula/detalhes/:turmaId" element={<Detalhes />} />
+        <Route path="/matricula/detalhes" element={<Detalhes />} />
         <Route path="/matricula/confirmacao" element={<Confirmacao />} />
         <Route path="/matricula/status" element={<Status />} />
         <Route path="/matricula/resultado" element={<Resultado />} />

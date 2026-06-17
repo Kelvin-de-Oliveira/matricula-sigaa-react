@@ -301,7 +301,7 @@ export default function Turmas() {
           </button>
 
           <button
-            onClick={() => navigate('/matricula/detalhes/preview')}
+            onClick={() => navigate('/matricula/detalhes')}
             disabled={turmasSelecionadas.length === 0}
             className="flex items-center gap-2 text-white text-sm font-semibold px-6 py-2.5 rounded-lg transition-opacity hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed"
             style={{ backgroundColor: '#1a3a5c' }}
