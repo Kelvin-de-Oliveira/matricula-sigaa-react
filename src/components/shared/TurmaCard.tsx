@@ -81,15 +81,21 @@ export default function TurmaCard({
 
   if (variant === 'selecionada') {
     return (
-      <div className="flex items-start gap-3 px-5 py-4 bg-blue-50">
+      <label className="flex items-start gap-3 px-5 py-4 bg-blue-50 cursor-pointer hover:bg-blue-100 transition-colors">
         <div className="pt-0.5">
+          <input
+            type="checkbox"
+            checked={true}
+            onChange={() => onToggle(turma)}
+            className="sr-only"
+          />
           <div className="w-5 h-5 rounded border-2 flex items-center justify-center"
             style={{ backgroundColor: '#1a3a5c', borderColor: '#1a3a5c' }}>
             <Check className="w-3.5 h-3.5 text-white" />
           </div>
         </div>
         {conteudo}
-      </div>
+      </label>
     )
   }
 
