@@ -74,15 +74,15 @@ As credenciais de acesso estão definidas em `src/mocks/aluno.json` (campo `id` 
  
 Por se tratar de um protótipo sem backend, alguns comportamentos que em um sistema real dependeriam de processamento do servidor são simulados por meio de controles visíveis na interface. Eles estão identificados visualmente para não serem confundidos com elementos reais da futura interface.
  
-### Conflito de pré requisito não cumprido
+### 1. Conflito de pré requisito não cumprido. 
  
 Na tela da Etapa 3 (verificação de pré requisitos e conflitos de horário), há um checkbox discreto rotulado "Simular pré requisito não cumprido (teste)". Ao marcá-lo antes da verificação ser concluída, o sistema exibirá o fluxo de erro com uma disciplina indicada como pendente por pré requisito não atendido, além de qualquer conflito de horário real detectado entre as turmas selecionadas.
  
-### Conflito de horário real
+### 2. Conflito de horário real
  
 O conflito de horário não precisa de simulação. Ele é calculado automaticamente a partir das turmas selecionadas na Etapa 2. Para provocá-lo, basta selecionar duas turmas cujos horários se sobreponham no mesmo dia e turno. A Etapa 3 identificará e exibirá o conflito automaticamente.
  
-### Divulgação do resultado da matrícula
+### 3. Divulgação do resultado da matrícula
  
 Na tela da Etapa 5 (processamento da solicitação), há um botão discreto rotulado "Simular divulgação do resultado (teste)". Ao clicá-lo, o sistema sorteia o resultado de cada disciplina (deferida ou indeferida) e navega para a tela de resultado final, reproduzindo o comportamento esperado após o encerramento do período de processamento.
 
