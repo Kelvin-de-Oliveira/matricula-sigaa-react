@@ -65,7 +65,27 @@ Inicie o servidor de desenvolvimento:
 npm run dev
 ```
 
-Acesse o endereço exibido no terminal, normalmente `http://localhost:5173`. As credenciais de acesso mockadas estão indicadas na própria tela de login.
+Acesse o endereço exibido no terminal, normalmente `http://localhost:5173`.
+
+As credenciais de acesso estão definidas em `src/mocks/aluno.json` (campo `id` como usuário) e validadas diretamente no componente `src/pages/Login/Login.tsx`, na função `onSubmit`. Para alterar o usuário, a senha ou a data de nascimento utilizados na autenticação, edite esses dois arquivos. Os demais dados do aluno (curso, período, endereço, renda per capita) também estão em `src/mocks/aluno.json` e são exibidos nas telas de portal e dados cadastrais.
+
+
+## Simulação de fluxos no protótipo
+ 
+Por se tratar de um protótipo sem backend, alguns comportamentos que em um sistema real dependeriam de processamento do servidor são simulados por meio de controles visíveis na interface. Eles estão identificados visualmente para não serem confundidos com elementos reais da futura interface.
+ 
+### Conflito de pré requisito não cumprido
+ 
+Na tela da Etapa 3 (verificação de pré requisitos e conflitos de horário), há um checkbox discreto rotulado "Simular pré requisito não cumprido (teste)". Ao marcá-lo antes da verificação ser concluída, o sistema exibirá o fluxo de erro com uma disciplina indicada como pendente por pré requisito não atendido, além de qualquer conflito de horário real detectado entre as turmas selecionadas.
+ 
+### Conflito de horário real
+ 
+O conflito de horário não precisa de simulação. Ele é calculado automaticamente a partir das turmas selecionadas na Etapa 2. Para provocá-lo, basta selecionar duas turmas cujos horários se sobreponham no mesmo dia e turno. A Etapa 3 identificará e exibirá o conflito automaticamente.
+ 
+### Divulgação do resultado da matrícula
+ 
+Na tela da Etapa 5 (processamento da solicitação), há um botão discreto rotulado "Simular divulgação do resultado (teste)". Ao clicá-lo, o sistema sorteia o resultado de cada disciplina (deferida ou indeferida) e navega para a tela de resultado final, reproduzindo o comportamento esperado após o encerramento do período de processamento.
+
 
 ## Limitações conhecidas
 
