@@ -6,6 +6,8 @@ Este projeto foi desenvolvido para a atividade de Proposta de Melhoria de Interf
 
 A solução escolhida foi o SIGAA, especificamente o fluxo de realização de matrícula online, mapeado previamente por meio de diagramas BPMN e de um mapa de empatia do usuário discente. Disponíveis em `docs/`.
 
+Autor: Kelvin de Oliveira
+
 ## Critérios de UI/UX considerados
 
 O redesenho buscou atender, ao longo de todas as telas, aos seguintes critérios discutidos durante o semestre: facilidade de aprendizado, eficiência de uso, memorabilidade, baixa taxa de erro, satisfação subjetiva, uso adequado de cor e contraste, respiro visual, proporção entre elementos, clareza, consistência e hierarquia visual.
@@ -86,17 +88,3 @@ O conflito de horário não precisa de simulação. Ele é calculado automaticam
  
 Na tela da Etapa 5 (processamento da solicitação), há um botão discreto rotulado "Simular divulgação do resultado (teste)". Ao clicá-lo, o sistema sorteia o resultado de cada disciplina (deferida ou indeferida) e navega para a tela de resultado final, reproduzindo o comportamento esperado após o encerramento do período de processamento.
 
-
-## Limitações conhecidas
-
-Por se tratar de um protótipo focado na interface e na experiência do usuário, as seguintes simplificações foram conscientemente adotadas e não foram resolvidas:
-
-### Identificadores de turma sem validação cruzada
-
-Existe a possibilidade teórica de colisão de identificadores entre as três fontes de dados mockadas (disciplinas do curso, equivalentes e núcleo livre). Em um sistema real, essa validação de unicidade seria responsabilidade do backend ao gerar os identificadores das turmas, e não da camada de interface.
-
-### Resultado da matrícula não persistido
-
-O resultado final da matrícula (disciplinas deferidas ou indeferidas) é calculado localmente na tela de resultado e não é persistido em um estado central nem em armazenamento permanente. Isso significa que, se o protótipo for recarregado após a exibição do resultado, um novo sorteio seria gerado. Em um sistema real, esse resultado viria de um processamento de backend e seria armazenado de forma definitiva.
-
-Nenhuma das duas limitações compromete a demonstração do fluxo de interface proposto, que é o objetivo central desta entrega.
